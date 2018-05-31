@@ -8,15 +8,17 @@ module Spriter {
         private _sprite: Phaser.Sprite;
 
         private _file: File;
-        private _hide; boolean;
+        private _hide: boolean;
+        private _isUsingAtlas: boolean;
 
         // -------------------------------------------------------------------------
-        constructor(parent: SpriterGroup, sprite: Phaser.Sprite) {
+        constructor(parent: SpriterGroup, sprite: Phaser.Sprite, isUsingAtlas: boolean) {
             super();
 
             this._spriter = parent.spriter;
             this._charMapStack = parent.charMapStack;
             this._sprite = sprite;
+            this._isUsingAtlas = isUsingAtlas;
         }
 
         // -------------------------------------------------------------------------
@@ -59,9 +61,13 @@ module Spriter {
         private setFile(file: File): void {
             file = this._charMapStack.getFile(file);
 
-            if (file !== null) {
+            if (file !== null && file.isEmpty !== true) {
                 this._hide = false;
-                this._sprite.frameName = file.name;
+                if (this._isUsingAtlas) {
+                    this._sprite.frameName = file.name;
+                } else {
+                    this._sprite.loadTexture(file.name);
+                }
             } else {
                 this._hide = true;
                 this._sprite.visible = false;
@@ -74,7 +80,7 @@ module Spriter {
             var s = this.sprite;
 
             s.position.set(t.x, t.y);
-            s.scale.set(t.scaleX, t.scaleY);
+            s.scale.set(t.scaleX /2, t.scaleY /2);
             s.anchor.set(t.pivotX, t.pivotY);
 
             s.alpha = t.alpha;

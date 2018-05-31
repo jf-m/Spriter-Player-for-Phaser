@@ -27,6 +27,7 @@ declare module Spriter {
 
 
     class Loader {
+        constructor(game: Phaser.Game, assetsPath: string);
         load(file: SpriterFile): Spriter;
     }
 
@@ -53,7 +54,7 @@ declare module Spriter {
 
     class SpriterGroup extends Phaser.Group {
         constructor(game: Phaser.Game, spriter: Spriter, texutreKey: string, entityName: string,
-            animation?: string | number, animationSpeedPercent?: number);
+            animation?: string | number, animationSpeedPercent?: number, isUsingAtlas?: boolean);
 
         // onLoop(SpriterGroup);
         onLoop: Phaser.Signal;

@@ -2,8 +2,28 @@
 
     export class Loader {
 
+        private _game: Phaser.Game;
         private _spriter: Spriter;
         private _fileType: eFileType;
+        public _loader: Phaser.Loader;
+        private _assetsPath: string;
+
+        // -------------------------------------------------------------------------
+        constructor(game: Phaser.Game, assetsPath: string) {
+            this._game = game;
+            if (assetsPath) {
+                this._assetsPath = assetsPath;
+                this._loader = new Phaser.Loader(game);
+            }
+        }
+
+        public destroy() {
+            this._game = null;
+            this._spriter = null;
+            this._fileType = null;
+            this._loader = null;
+            this._assetsPath = null;
+        }
 
         // -------------------------------------------------------------------------
         public load(file: SpriterFile): Spriter {
@@ -26,6 +46,9 @@
             this.loadEntities(this._spriter, entities);
             entities.processed();
 
+            if (this._loader) {
+                this._loader.start();
+            }
             return this._spriter;
         }
 
@@ -52,6 +75,9 @@
 
                 // null is returned if file is not image but sound
                 if (file !== null) {
+                    if (this._loader && file.isEmpty !== true) {
+                        this._loader.image(file.name, this._assetsPath + file.name + ".svg.png");
+                    }
                     folder.addFile(file);
                 }
             }
@@ -80,7 +106,7 @@
             // different structure for json than for xml
             if (this._fileType !== eFileType.JSON) {
                 tagDefs.processed();
-            } 
+            }
         }
 
         // -------------------------------------------------------------------------
@@ -163,7 +189,7 @@
             // different structure for json than for xml
             if (this._fileType !== eFileType.JSON) {
                 varDefs.processed();
-            } 
+            }
         }
 
         // -------------------------------------------------------------------------
@@ -235,7 +261,7 @@
                     mainLineKey.addBoneRef(boneRefs.getRef(b));
                 }
                 boneRefs.processed();
-                
+
                 // load sprite refs (object refs)
                 var spriteRefs = mainlineKeys.getChildNodes(i, "object_ref");
                 for (var s = 0; s < spriteRefs.length(); s++) {

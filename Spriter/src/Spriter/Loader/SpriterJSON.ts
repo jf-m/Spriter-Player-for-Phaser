@@ -90,7 +90,8 @@ module Spriter {
                 this.parseInt(element, "id"),
                 this.getFileName(this.parseString(element, "name")),
                 this.parseFloat(element, "pivot_x"),
-                1 - this.parseFloat(element, "pivot_y"));
+                1 - this.parseFloat(element, "pivot_y"),
+                this.parseBoolean(element, "empty"));
         }
 
         // -------------------------------------------------------------------------

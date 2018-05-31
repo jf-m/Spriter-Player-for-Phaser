@@ -7,7 +7,7 @@ module SpriterExample {
         // -------------------------------------------------------------------------
         constructor() {
             // init game
-            super(Global.GAME_WIDTH, Global.GAME_HEIGHT, Phaser.AUTO, "content", null /* , transparent, antialias, physicsConfig */);
+            super(Global.GAME_WIDTH, Global.GAME_HEIGHT, Phaser.CANVAS, "content", null /* , transparent, antialias, physicsConfig */);
 
             Game.game = this;
             

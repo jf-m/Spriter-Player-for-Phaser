@@ -3584,7 +3584,7 @@ var Spriter;
             var t = this.transformed;
             var s = this.sprite;
             s.position.set(t.x, t.y);
-            s.scale.set(t.scaleX, t.scaleY);
+            s.scale.set(t.scaleX /2, t.scaleY /2);
             s.anchor.set(t.pivotX, t.pivotY);
             s.alpha = t.alpha;
             s.angle = t.angle;

@@ -46,10 +46,11 @@
 
         private _paused: boolean = false;
         private _finished: boolean;
+        private _isUsingAtlas: boolean;
 
         // -------------------------------------------------------------------------
         constructor(game: Phaser.Game, spriter: Spriter, texutreKey: string, entityName: string,
-            animation?: string | number, animationSpeedPercent?: number) {
+            animation?: string | number, animationSpeedPercent?: number, isUsingAtlas?: boolean) {
 
             super(game, null);
 
@@ -57,6 +58,7 @@
             this._entityName = entityName;
             this._entity = spriter.getEntityByName(entityName);
             this._textureKey = texutreKey;
+            this._isUsingAtlas = isUsingAtlas ? isUsingAtlas : false;
 
             this._root = new SpatialInfo();
 
@@ -309,7 +311,7 @@
                 // if sprite does not exist add it and make active, else make it active only
                 if (this._objects[ref.id] === undefined) {
                     sprite = new Phaser.Sprite(this.game, 0, 0, this._textureKey);
-                    object = new SpriterObject(this, sprite);
+                    object = new SpriterObject(this, sprite, this._isUsingAtlas);
                     this._objects[ref.id] = object;
                     this.add(sprite);
                 } else {
