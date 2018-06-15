@@ -12,12 +12,11 @@ module SpriterExample {
             Game.game = this;
             
             // states
-            this.state.add("Boot", Boot);
             this.state.add("Preloader", Preloader);
             this.state.add("Test", Test);
 
             // start
-            this.state.start("Boot");
+            this.state.start("Preloader");
         }
     }
 }

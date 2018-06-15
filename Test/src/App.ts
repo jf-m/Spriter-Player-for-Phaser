@@ -13,10 +13,6 @@
     }
 }
 
-var PhaserGlobal = {
-    stopFocus: true
-}
-
 // -------------------------------------------------------------------------
 window.onload = () => {
     SpriterExample.Global.game = new SpriterExample.Game();

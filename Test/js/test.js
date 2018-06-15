@@ -24,9 +24,6 @@ var SpriterExample;
     }());
     SpriterExample.Global = Global;
 })(SpriterExample || (SpriterExample = {}));
-var PhaserGlobal = {
-    stopFocus: true
-};
 // -------------------------------------------------------------------------
 window.onload = function () {
     SpriterExample.Global.game = new SpriterExample.Game();
@@ -43,11 +40,10 @@ var SpriterExample;
             _super.call(this, SpriterExample.Global.GAME_WIDTH, SpriterExample.Global.GAME_HEIGHT, Phaser.CANVAS, "content", null /* , transparent, antialias, physicsConfig */) || this;
             Game.game = _this;
             // states
-            _this.state.add("Boot", SpriterExample.Boot);
             _this.state.add("Preloader", SpriterExample.Preloader);
             _this.state.add("Test", SpriterExample.Test);
             // start
-            _this.state.start("Boot");
+            _this.state.start("Preloader");
             return _this;
         }
         return Game;
@@ -1003,13 +999,6 @@ var SpriterExample;
                 "maxRows": 3,
                 "winningBoard": "atk"
             };
-            // ===============================================================
-            // HELP ITEM (book image)
-            // ===============================================================
-            this._item = new Phaser.Sprite(this.game, 0, 0, "Item");
-            this._item.anchor.set(0.5, 0.95);
-            this._item.exists = false;
-            this.world.add(this._item);
             this.world.game.time.advancedTiming = true;
             // ===============================================================
             // BASIC SETUP
@@ -1032,7 +1021,6 @@ var SpriterExample;
                     // create actual renderable object - it is extension of Phaser.Group
                     _this._spriterGroup[i] = new Spriter.SpriterGroup(_this.game, _this._spriterData[i], null, "Soldier0", 'Walk', 100);
                     _this._spriterGroup[i].position.setTo(100 + (i * 20), 400);
-                    _this._spriterGroup[i].scale.setTo(.5, .5);
                     // adds SpriterGroup to Phaser.World to appear on screen
                     _this.world.add(_this._spriterGroup[i]);
                 }
@@ -1048,14 +1036,7 @@ var SpriterExample;
                         this._spriterGroup[i].playAnimationById(animation);
                     }
                 }, _this);
-                // change char maps
                 var charMaps = ["Green", "Brush"];
-                var charmapID = 0;
-                // on I key show / hide item attached to point
-                key = _this.game.input.keyboard.addKey(Phaser.Keyboard.I);
-                key.onDown.add(function () {
-                    this._item.exists = !this._item.exists;
-                }, _this);
             });
         };
         // -------------------------------------------------------------------------

@@ -10,5 +10,8 @@
   "bugs": {
     "url": "https://github.com/SBCGames/Spriter-Player-for-Phaser/issues"
   },
-  "homepage": "https://github.com/SBCGames/Spriter-Player-for-Phaser#readme"
+  "homepage": "https://github.com/SBCGames/Spriter-Player-for-Phaser#readme",
+  "dependencies": {
+    "@types/gsap": "^1.19.2"
+  }
 }

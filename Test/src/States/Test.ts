@@ -903,13 +903,6 @@
                 "winningBoard": "atk"
             };
 
-            // ===============================================================
-            // HELP ITEM (book image)
-            // ===============================================================
-            this._item = new Phaser.Sprite(this.game, 0, 0, "Item");
-            this._item.anchor.set(0.5, 0.95);
-            this._item.exists = false;
-            this.world.add(this._item);
             this.world.game.time.advancedTiming = true;
 
 
@@ -940,7 +933,6 @@
                     // create actual renderable object - it is extension of Phaser.Group
                     this._spriterGroup[i] = new Spriter.SpriterGroup(this.game, this._spriterData[i], null, "Soldier0", 'Walk', 100);
                     this._spriterGroup[i].position.setTo(100 + (i * 20), 400);
-                    this._spriterGroup[i].scale.setTo(.5, .5);
                     // adds SpriterGroup to Phaser.World to appear on screen
                     this.world.add(this._spriterGroup[i]);
                 }
@@ -960,15 +952,7 @@
                     }
                 }, this);
 
-                // change char maps
                 var charMaps = ["Green", "Brush"];
-                var charmapID = 0;
-
-                // on I key show / hide item attached to point
-                key = this.game.input.keyboard.addKey(Phaser.Keyboard.I);
-                key.onDown.add(function () {
-                    this._item.exists = !this._item.exists;
-                }, this);
             });
         }
 
@@ -987,199 +971,5 @@
             this.game.debug.text(this.world.game.time.fps.toString(), 2, 14, "#00ff00");
         }
 
-
-        /*
-
-        // =========================================================================
-        // ============= UNDER CONSTRUCTION - TOUCH AT YOUR OWN RISK ===============
-        // =========================================================================
-
-        // -------------------------------------------------------------------------
-        // definitions if using minimized Spriter files
-        public minimizedDefinitions: any = {
-            "name": "spriter_data",
-            "minName": "s",
-            "attributes": {
-                "scml_version": "v",
-                "generator": "g",
-                "generator_version": "gv"
-            },
-            "childElements": {
-                "folder": {
-                    "name": "folder",
-                    "minName": "d",
-                    "attributes": {
-                        "id": "i",
-                        "name": "n"
-                    },
-                    "childElements": {
-                        "file": {
-                            "name": "file",
-                            "minName": "f",
-                            "attributes": {
-                                "id": "i",
-                                "name": "n",
-                                "width": "w",
-                                "height": "h",
-                                "pivot_x": "px",
-                                "pivot_y": "py"
-                            }
-                        }
-                    }
-                },
-                "entity": {
-                    "name": "entity",
-                    "minName": "e",
-                    "attributes": {
-                        "id": "i",
-                        "name": "n"
-                    },
-                    "childElements": {
-                        "obj_info": {
-                            "name": "obj_info",
-                            "minName": "o",
-                            "attributes": {
-                                "name": "n",
-                                "type": "t",
-                                "w": "w",
-                                "h": "h"
-                            },
-                            "childElements": {
-                                "frames": {
-                                    "name": "frames",
-                                    "minName": "f",
-                                    "childElements": {
-                                        "i": {
-                                            "name": "i",
-                                            "minName": "i",
-                                            "attributes": {
-                                                "folder": "d",
-                                                "file": "f"
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "animation": {
-                            "name": "animation",
-                            "minName": "a",
-                            "attributes": {
-                                "id": "i",
-                                "name": "n",
-                                "length": "l",
-                                "interval": "t",
-                                "looping": "c"
-                            },
-                            "childElements": {
-                                "mainline": {
-                                    "name": "mainline",
-                                    "minName": "m",
-                                    "childElements": {
-                                        "key": {
-                                            "name": "key",
-                                            "minName": "k",
-                                            "attributes": {
-                                                "id": "i",
-                                                "time": "t"
-                                            },
-                                            "childElements": {
-                                                "bone_ref": {
-                                                    "name": "bone_ref",
-                                                    "minName": "b",
-                                                    "attributes": {
-                                                        "id": "i",
-                                                        "parent": "p",
-                                                        "timeline": "t",
-                                                        "key": "k"
-                                                    }
-                                                },
-                                                "object_ref": {
-                                                    "name": "object_ref",
-                                                    "minName": "o",
-                                                    "attributes": {
-                                                        "id": "i",
-                                                        "name": "n",
-                                                        "timeline": "t",
-                                                        "parent": "p",
-                                                        "key": "k",
-                                                        "z_index": "z",
-                                                        "folder": "d",
-                                                        "file": "f",
-                                                        "abs_x": "ax",
-                                                        "abs_y": "ay",
-                                                        "abs_pivot_x": "apx",
-                                                        "abs_pivot_y": "apy",
-                                                        "abs_scale_x": "asx",
-                                                        "abs_scale_y": "asy",
-                                                        "abs_angle": "r",
-                                                        "abs_a": "a"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "timeline": {
-                                    "name": "timeline",
-                                    "minName": "t",
-                                    "attributes": {
-                                        "id": "i",
-                                        "name": "n",
-                                        "obj": "o",
-                                        "object_type": "t"
-                                    },
-                                    "childElements": {
-                                        "key": {
-                                            "name": "key",
-                                            "minName": "k",
-                                            "attributes": {
-                                                "id": "i",
-                                                "time": "t",
-                                                "spin": "s",
-                                                "curve_type": "ct",
-                                                "c1": "c1",
-                                                "c2": "c2"
-                                            },
-                                            "childElements": {
-                                                "bone": {
-                                                    "name": "bone",
-                                                    "minName": "b",
-                                                    "attributes": {
-                                                        "x": "x",
-                                                        "y": "y",
-                                                        "angle": "r",
-                                                        "scale_x": "sx",
-                                                        "scale_y": "sy"
-                                                    }
-                                                },
-                                                "object": {
-                                                    "name": "object",
-                                                    "minName": "o",
-                                                    "attributes": {
-                                                        "folder": "d",
-                                                        "file": "f",
-                                                        "x": "x",
-                                                        "y": "y",
-                                                        "scale_x": "sx",
-                                                        "scale_y": "sy",
-                                                        "pivot_x": "px",
-                                                        "pivot_y": "py",
-                                                        "angle": "r",
-                                                        "a": "a"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        // ---- end ----
-        */
     }
 }
